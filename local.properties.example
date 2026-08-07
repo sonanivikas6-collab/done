@@ -1,0 +1,10 @@
+# Copy this file to "local.properties" (same folder) and fill in your
+# real AdMob values. local.properties is gitignored and stays private.
+#
+# Without this file, the app still builds fine using Google's official
+# TEST ad IDs (no real ads, no revenue, completely safe for development).
+
+ADMOB_APP_ID=ca-app-pub-XXXXXXXXXXXXXXXX~XXXXXXXXXX
+ADMOB_BANNER_ID=ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+ADMOB_INTERSTITIAL_ID=ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX
+ADMOB_NATIVE_ID=ca-app-pub-XXXXXXXXXXXXXXXX/XXXXXXXXXX

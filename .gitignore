@@ -1,0 +1,19 @@
+# IMPORTANT: keeps your real AdMob IDs private
+local.properties
+
+# Android Studio / Gradle build outputs
+*.iml
+.gradle/
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.aab
+
+# Keystore files - NEVER commit your signing key or its password
+*.jks
+*.keystore
+keystore.properties

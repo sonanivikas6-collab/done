@@ -1,0 +1,58 @@
+      name: Build Debug APK
+
+      on:
+        push:
+          branches: [ main, master ]
+        workflow_dispatch:
+
+      permissions:
+        contents: write
+
+      jobs:
+        build:
+          runs-on: ubuntu-latest
+
+          steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up JDK 17
+              uses: actions/setup-java@v4
+              with:
+                distribution: 'temurin'
+                java-version: '17'
+
+            - name: Set up Gradle
+              uses: gradle/actions/setup-gradle@v4
+
+            # local.properties is gitignored (never uploaded), so it won't exist
+            # here. We create a placeholder one with Google's official TEST AdMob
+            # IDs so the build still succeeds. Real ads only work in a build made
+            # with YOUR real local.properties on your own PC.
+            - name: Create placeholder local.properties for CI build
+              run: |
+                cat > local.properties << 'EOF'
+                ADMOB_APP_ID=ca-app-pub-3940256099942544~3347511713
+                ADMOB_BANNER_ID=ca-app-pub-3940256099942544/9214589741
+                ADMOB_INTERSTITIAL_ID=ca-app-pub-3940256099942544/1033173712
+                ADMOB_NATIVE_ID=ca-app-pub-3940256099942544/2247696110
+                EOF
+
+            - name: Build debug APK
+              run: gradle assembleDebug
+
+            - name: Upload APK as downloadable artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: FitFlow-debug-apk
+                path: app/build/outputs/apk/debug/app-debug.apk
+
+            - name: Create GitHub Release with APK attached
+              uses: softprops/action-gh-release@v2
+              with:
+                tag_name: build-${{ github.run_number }}
+                name: "FitFlow Debug Build #${{ github.run_number }}"
+                files: app/build/outputs/apk/debug/app-debug.apk
+                body: "Automatic debug build from commit ${{ github.sha }}. Uses Google's test AdMob IDs (safe for testing only)."
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

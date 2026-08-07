@@ -103,7 +103,6 @@ fun SettingsScreen(
                             context.startActivity(intent)
                         }
                         .padding(horizontal = 18.dp, vertical = 16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text("📷", style = MaterialTheme.typography.titleLarge)
@@ -124,7 +123,9 @@ fun SettingsScreen(
                 "FitFlow v1.0",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = 24.dp)
+                modifier = Modifier
+                    .align(Alignment.CenterHorizontally)
+                    .padding(bottom = 24.dp)
             )
         }
     }
